@@ -33,7 +33,7 @@ export function GuestForm({ action, initial, showSensitive, submitLabel }: { act
       <div />
       <TextAreaField label="Preferences" name="preferences" defaultValue={initial.preferences} error={e.preferences} fieldClassName="sm:col-span-2" hint="Confirmed preferences only. Note assumptions as such." />
       {showSensitive ? (
-        <fieldset className="grid gap-4 rounded-[var(--radius-md)] border border-stone-200 bg-stone-50 p-4 sm:col-span-2 sm:grid-cols-3">
+        <fieldset className="grid gap-4 rounded-[var(--radius-md)] border border-line bg-subtle p-4 sm:col-span-2 sm:grid-cols-3">
           <legend className="px-1 text-[13px] font-medium">Restricted information</legend>
           <p className="text-xs text-ink-muted sm:col-span-3">Visible only to roles with access to sensitive guest data. Record only what operations genuinely need (POPIA).</p>
           <TextAreaField label="Dietary" name="dietary" rows={3} defaultValue={initial.dietary} error={e.dietary} />
@@ -45,7 +45,7 @@ export function GuestForm({ action, initial, showSensitive, submitLabel }: { act
       )}
       <TextAreaField label="Relationship notes (internal)" name="relationshipNotes" defaultValue={initial.relationshipNotes} error={e.relationshipNotes} fieldClassName="sm:col-span-2" />
       <label className="flex items-center gap-2 text-sm sm:col-span-2">
-        <input type="checkbox" name="marketingConsent" defaultChecked={initial.marketingConsent} className="h-4 w-4 accent-forest" />
+        <input type="checkbox" name="marketingConsent" defaultChecked={initial.marketingConsent} className="h-4 w-4 accent-accent" />
         Guest has consented to marketing communications
       </label>
       <div className="sm:col-span-2">

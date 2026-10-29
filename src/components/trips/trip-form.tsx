@@ -37,7 +37,7 @@ export interface TripFormValues {
 
 function FormSection({ title, description, children }: { title: string; description?: string; children: React.ReactNode }) {
   return (
-    <fieldset className="grid gap-x-10 gap-y-4 border-t border-stone-200 py-8 first:border-t-0 first:pt-0 lg:grid-cols-[240px_1fr]">
+    <fieldset className="grid gap-x-10 gap-y-4 border-t border-line py-8 first:border-t-0 first:pt-0 lg:grid-cols-[240px_1fr]">
       <legend className="sr-only">{title}</legend>
       <div aria-hidden>
         <p className="text-[15px] font-semibold text-ink">{title}</p>
@@ -118,12 +118,12 @@ export function TripForm({
         <SelectField label="Quoting entity" name="quotingCompanyId" options={companies} placeholder="Not set" defaultValue={initial.quotingCompanyId} error={e.quotingCompanyId} />
         <div className="sm:col-span-2 grid gap-4 sm:grid-cols-2">
           {(["participatingBrandIds", "supplyingBrandIds"] as const).map((field) => (
-            <fieldset key={field} className="rounded-[var(--radius-md)] border border-stone-200 bg-surface px-4 py-3">
+            <fieldset key={field} className="rounded-[var(--radius-md)] border border-line bg-surface px-4 py-3">
               <legend className="px-1 text-[13px] font-medium text-ink">{field === "participatingBrandIds" ? "Participating brands" : "Supplying brands"}</legend>
               <p className="mb-2 text-xs text-ink-faint">{field === "participatingBrandIds" ? "e.g. AYA for a safari extension" : "e.g. Schmidt Car Hire supplying vehicles"}</p>
               {brands.map((b) => (
                 <label key={b.value} className="flex items-center gap-2 py-1 text-sm">
-                  <input type="checkbox" name={field} value={b.value} defaultChecked={initial[field].includes(b.value)} className="h-4 w-4 accent-forest" />
+                  <input type="checkbox" name={field} value={b.value} defaultChecked={initial[field].includes(b.value)} className="h-4 w-4 accent-accent" />
                   {b.label}
                 </label>
               ))}
@@ -152,7 +152,7 @@ export function TripForm({
         <TextAreaField label="Guest-facing notes" name="guestNotes" defaultValue={initial.guestNotes} error={e.guestNotes} />
       </FormSection>
 
-      <div className="sticky bottom-0 -mx-4 flex items-center justify-end gap-3 border-t border-stone-200 bg-ivory/95 px-4 py-4 backdrop-blur md:-mx-8 md:px-8">
+      <div className="sticky bottom-0 -mx-4 flex items-center justify-end gap-3 border-t border-line bg-canvas/95 px-4 py-4 backdrop-blur md:-mx-8 md:px-8">
         {dirty && <span className="mr-auto text-[12px] text-ink-faint" role="status">Unsaved changes</span>}
         <ButtonLink href={cancelHref} variant="ghost">Cancel</ButtonLink>
         <Button type="submit" disabled={pending}>{pending ? "Saving…" : submitLabel}</Button>

@@ -46,7 +46,7 @@ export default async function TripsPage({ searchParams }: PageProps<"/trips">) {
               aria-current={view === key ? "page" : undefined}
               className={cn(
                 "rounded-[var(--radius-md)] px-3 py-1.5 text-[13px] whitespace-nowrap",
-                view === key ? "bg-forest text-surface" : "text-ink-muted hover:bg-stone-100 hover:text-ink",
+                view === key ? "bg-accent text-surface" : "text-ink-muted hover:bg-muted hover:text-ink",
               )}
             >
               {v.label}
@@ -85,7 +85,7 @@ export default async function TripsPage({ searchParams }: PageProps<"/trips">) {
           </thead>
           <tbody>
             {rows.map((t) => (
-              <tr key={t.id} className="hover:bg-stone-50">
+              <tr key={t.id} className="hover:bg-subtle">
                 <Td className="text-[12.5px] whitespace-nowrap text-ink-muted tabular">{t.reference}</Td>
                 <Td>
                   <Link href={`/trips/${t.id}`} className="font-medium text-ink hover:underline">{t.name}</Link>

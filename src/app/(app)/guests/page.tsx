@@ -35,7 +35,7 @@ export default async function GuestsPage({ searchParams }: PageProps<"/guests">)
           <thead><tr><Th>Name</Th><Th>Email</Th><Th>Phone</Th><Th>Nationality</Th><Th className="text-right">Trips as lead</Th></tr></thead>
           <tbody>
             {rows.map((g) => (
-              <tr key={g.id} className="hover:bg-stone-50">
+              <tr key={g.id} className="hover:bg-subtle">
                 <Td><Link href={`/guests/${g.id}`} className="font-medium hover:underline">{g.lastName}, {g.firstName}</Link>{g.isDemo && <Badge tone="warning" className="ml-2">Demo</Badge>}</Td>
                 <Td className="text-[13px]">{g.email ?? "—"}</Td>
                 <Td className="text-[13px]">{g.phone ?? "—"}</Td>

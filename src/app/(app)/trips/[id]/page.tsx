@@ -59,7 +59,7 @@ export default async function TripWorkspacePage({ params, searchParams }: PagePr
 
   return (
     <>
-      <header className="mb-8 border-b border-stone-200 pb-6">
+      <header className="mb-8 border-b border-line pb-6">
         <nav aria-label="Breadcrumb" className="mb-3 text-[12px] text-ink-faint">
           <Link href="/trips" className="hover:text-ink">Trips</Link> <span aria-hidden>/</span> <span className="tabular">{trip.reference}</span>
         </nav>
@@ -137,7 +137,7 @@ export default async function TripWorkspacePage({ params, searchParams }: PagePr
                 <Fact label="Occasion">{trip.occasion ?? "—"}</Fact>
                 <Fact label="Experience style">{trip.experienceStyle ?? "—"}</Fact>
               </dl>
-              {trip.specialRequirements && <p className="mt-6 border-t border-stone-100 pt-4 text-sm whitespace-pre-line">{trip.specialRequirements}</p>}
+              {trip.specialRequirements && <p className="mt-6 border-t border-muted pt-4 text-sm whitespace-pre-line">{trip.specialRequirements}</p>}
             </Panel>
           </Section>
 
@@ -153,7 +153,7 @@ export default async function TripWorkspacePage({ params, searchParams }: PagePr
           <Section title="Workspace modules" description="Further sections of the trip workspace, delivered in the phases shown.">
             <ul className="flex flex-wrap gap-2">
               {MODULES.map((m) => (
-                <li key={m.label} className="rounded-[var(--radius-md)] border border-dashed border-stone-300 px-3 py-1.5 text-[12.5px] text-ink-muted">
+                <li key={m.label} className="rounded-[var(--radius-md)] border border-dashed border-line-strong px-3 py-1.5 text-[12.5px] text-ink-muted">
                   {m.label} <span className="text-ink-faint">· phase {m.phase}</span>
                 </li>
               ))}
@@ -198,7 +198,7 @@ export default async function TripWorkspacePage({ params, searchParams }: PagePr
           </Section>
 
           <Section title="Status history">
-            <ol className="space-y-4 border-l border-stone-200 pl-4">
+            <ol className="space-y-4 border-l border-line pl-4">
               {data.history.map((h) => (
                 <li key={h.id} className="text-[13px]">
                   <p className="text-ink">

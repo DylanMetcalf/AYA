@@ -2,8 +2,8 @@ import { Badge, type Tone } from "@/components/ui/badge";
 import { TRIP_STATUS_LABEL, type TripStatus } from "@/lib/domain/trip-lifecycle";
 
 const TONE: Partial<Record<TripStatus, Tone>> = {
-  quote_issued: "brass", awaiting_decision: "brass", provisional_hold: "warning",
-  confirmed: "forest", pre_trip: "forest", in_progress: "success", completed: "info", reconciliation: "info",
+  quote_issued: "accent", awaiting_decision: "accent", provisional_hold: "warning",
+  confirmed: "accent", pre_trip: "accent", in_progress: "success", completed: "info", reconciliation: "info",
   closed: "neutral", cancelled: "danger", lost: "neutral",
 };
 

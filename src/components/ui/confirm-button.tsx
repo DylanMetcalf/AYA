@@ -31,8 +31,8 @@ export function ConfirmButton({
       <Button variant={variant} size="sm" onClick={() => { setResult(null); ref.current?.showModal(); }}>
         {label}
       </Button>
-      <dialog ref={ref} aria-labelledby="confirm-title" className="m-auto w-[min(92vw,440px)] rounded-[var(--radius-lg)] border border-stone-200 bg-surface p-6 text-ink shadow-xl">
-        <h2 id="confirm-title" className="font-display text-xl">{title}</h2>
+      <dialog ref={ref} aria-labelledby="confirm-title" className="m-auto w-[min(92vw,440px)] rounded-[var(--radius-lg)] border border-line bg-surface p-6 text-ink shadow-xl">
+        <h2 id="confirm-title" className="title text-[17px]">{title}</h2>
         <div className="mt-2 text-sm text-ink-muted">{body}</div>
         {result && !result.ok && <Alert tone="danger" className="mt-4">{result.message}</Alert>}
         <div className="mt-6 flex justify-end gap-2">

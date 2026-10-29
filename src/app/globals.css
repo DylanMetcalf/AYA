@@ -1,44 +1,53 @@
 @import "tailwindcss";
 
 /*
- * ULTIMA design tokens — PROVISIONAL until official brand guidelines arrive (OPEN_DECISIONS D2).
- * Contrast (measured): ink, ink-muted, forest, olive, brass-text and status colours meet WCAG AA
- * (≥4.5:1) on ivory, surface and stone-100. ink-faint meets AA on ivory/surface only — not on stone-100.
- * `brass` (2.8:1) is decorative only (rules, accents), never text.
+ * ULTIMA Operations design tokens (provisional identity; OPEN_DECISIONS D2).
+ * Semantic names only — swap values here to rebrand. Contrast verified by scripts/check-contrast.ts.
+ * Brand identities (ULTIMA/AYA/Schmidt) live in the `brands` table and are used for records and
+ * documents, never to recolour the application shell.
  */
 @theme {
-  --color-ivory: #f7f3ec;
-  --color-surface: #fffdf9;
-  --color-stone-50: #f3eee5;
-  --color-stone-100: #ece5d8;
-  --color-stone-200: #ddd4c3;
-  --color-stone-300: #c8bda8;
-  --color-stone-500: #8c826e;
-  --color-ink: #1e1f1c;
-  --color-ink-muted: #57564d;
-  --color-ink-faint: #6f6c61;
-  --color-forest: #1f3a2e;
-  --color-forest-600: #2b4d3d;
-  --color-forest-50: #e6ece6;
-  --color-olive: #5f6140;
-  --color-sand: #d8c8a8;
-  --color-brass: #b08d57;
-  --color-brass-text: #7d5f2e;
-  --color-success: #2f6345;
-  --color-success-bg: #e3eee5;
-  --color-warning: #8a5a12;
-  --color-warning-bg: #f6ebd6;
-  --color-danger: #9b3328;
-  --color-danger-bg: #f6e2de;
-  --color-info: #35546e;
-  --color-info-bg: #e2e9ef;
+  --color-canvas: #f6f7f9;
+  --color-surface: #ffffff;
+  --color-subtle: #f2f4f7;
+  --color-muted: #eaedf1;
+  --color-line: #e2e5ea;
+  --color-line-strong: #c9ced8;
+  --color-ink: #12141a;
+  --color-ink-muted: #4a5160;
+  --color-ink-faint: #5f6878;
 
-  --font-display: "Fraunces Variable", Georgia, serif;
-  --font-sans: "Inter Variable", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --color-graphite: #0f1116;
+  --color-graphite-raised: #1a1d24;
+  --color-graphite-line: #272b34;
+  --color-graphite-text: #a4aab7;
 
-  --radius-sm: 3px;
-  --radius-md: 5px;
-  --radius-lg: 8px;
+  --color-accent: #4a4ce8;
+  --color-accent-hover: #3b3dd1;
+  --color-accent-soft: #eeeffd;
+  --color-accent-text: #3a3cc4;
+
+  --color-success: #0d7354;
+  --color-success-bg: #e5f3ee;
+  --color-warning: #94560a;
+  --color-warning-bg: #fcf1df;
+  --color-danger: #b93228;
+  --color-danger-bg: #fbeae8;
+  --color-info: #2b5a95;
+  --color-info-bg: #e7eef8;
+
+  --font-sans: "Geist Variable", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-mono: "Geist Mono Variable", ui-monospace, "SF Mono", Menlo, monospace;
+
+  --radius-sm: 4px;
+  --radius-md: 6px;
+  --radius-lg: 10px;
+
+  --animate-shimmer: shimmer 1.4s ease-in-out infinite;
+  @keyframes shimmer {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.45; }
+  }
 }
 
 :root {
@@ -46,41 +55,43 @@
 }
 
 body {
-  background: var(--color-ivory);
+  background: var(--color-canvas);
   color: var(--color-ink);
   font-family: var(--font-sans);
-  font-feature-settings: "cv11", "ss01";
+  font-size: 14px;
   -webkit-font-smoothing: antialiased;
 }
 
-/* Financial figures align in columns. */
+/* Figures in tables and financial summaries align by column. */
 .tabular {
   font-variant-numeric: tabular-nums;
+  font-feature-settings: "tnum";
+}
+
+/* Page and section titles: tight, confident, not oversized. */
+.title {
+  font-weight: 600;
+  letter-spacing: -0.022em;
 }
 
 :focus-visible {
-  outline: 2px solid var(--color-forest);
+  outline: 2px solid var(--color-accent);
   outline-offset: 2px;
 }
 
 @media (prefers-reduced-motion: reduce) {
-  *,
-  *::before,
-  *::after {
+  *, *::before, *::after {
     animation-duration: 0.01ms !important;
     transition-duration: 0.01ms !important;
   }
 }
 
 dialog::backdrop {
-  background: rgb(30 31 28 / 0.35);
+  background: rgb(15 17 22 / 0.4);
 }
 
 @media print {
-  .no-print {
-    display: none !important;
-  }
-  body {
-    background: white;
-  }
+  .no-print { display: none !important; }
+  body { background: white; font-size: 11pt; }
+  @page { margin: 16mm; }
 }

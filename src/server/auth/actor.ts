@@ -7,6 +7,7 @@ export interface Actor {
   name: string;
   email: string;
   roleKeys: string[];
+  roleNames: string[];
   permissions: ReadonlySet<Permission>;
 }
 

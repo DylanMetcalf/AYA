@@ -5,48 +5,57 @@ export interface NavItem {
   href: string;
   icon: string;
   permission?: Permission;
-  /** Phase in docs/IMPLEMENTATION_PLAN.md that delivers this module; undefined = live. */
-  plannedPhase?: number;
+  /** Highlight when the path starts with any of these (defaults to href). */
+  match?: string[];
 }
 
+/** Grouped by how staff work. Only modules that exist appear here. */
 export const NAV_GROUPS: { label?: string; items: NavItem[] }[] = [
-  { items: [{ label: "Command Centre", href: "/", icon: "compass" }] },
+  {
+    label: "Command",
+    items: [
+      { label: "Overview", href: "/", icon: "overview" },
+      { label: "My Tasks", href: "/tasks", icon: "tasks" },
+      { label: "Operations Calendar", href: "/calendar", icon: "calendar", permission: "trip.read" },
+    ],
+  },
   {
     label: "Journeys",
     items: [
-      { label: "Trips", href: "/trips", icon: "route", permission: "trip.read" },
-      { label: "Trip Studio", href: "/studio", icon: "pen", permission: "trip.edit", plannedPhase: 4 },
-      { label: "Guests & Relationships", href: "/guests", icon: "users", permission: "guest.read" },
+      { label: "All Journeys", href: "/trips", icon: "route", permission: "trip.read", match: ["/trips"] },
+      { label: "Journey Pipeline", href: "/pipeline", icon: "pipeline", permission: "trip.read" },
+      { label: "Guests", href: "/guests", icon: "users", permission: "guest.read" },
     ],
   },
   {
-    label: "Supply",
+    label: "Operations",
     items: [
-      { label: "Destinations & Suppliers", href: "/suppliers", icon: "map", permission: "supplier.read", plannedPhase: 5 },
-      { label: "Vehicles", href: "/vehicles", icon: "car", permission: "fleet.read", plannedPhase: 8 },
-      { label: "Inventory", href: "/inventory", icon: "package", plannedPhase: 9 },
+      { label: "Bookings", href: "/bookings", icon: "bookings", permission: "trip.read" },
+      { label: "Fleet & Vehicles", href: "/fleet", icon: "car", permission: "fleet.read" },
+      { label: "Inventory & Amenities", href: "/inventory", icon: "package", permission: "inventory.read" },
     ],
   },
   {
-    label: "Delivery",
+    label: "Suppliers",
     items: [
-      { label: "Operations", href: "/operations", icon: "clipboard", plannedPhase: 7 },
-      { label: "Team", href: "/team", icon: "id", permission: "admin.users" },
+      { label: "Supplier Directory", href: "/suppliers", icon: "building", permission: "supplier.read", match: ["/suppliers"] },
+      { label: "Rate Review", href: "/rates/review", icon: "rates", permission: "rate.approve" },
     ],
   },
   {
     label: "Business",
     items: [
-      { label: "Financials", href: "/financials", icon: "wallet", permission: "finance.read_costs", plannedPhase: 6 },
-      { label: "Performance", href: "/performance", icon: "chart", permission: "performance.read", plannedPhase: 10 },
-      { label: "Reports", href: "/reports", icon: "file", permission: "performance.read", plannedPhase: 10 },
+      { label: "Financials", href: "/financials", icon: "wallet", permission: "finance.read_costs" },
+      { label: "Performance", href: "/performance", icon: "chart", permission: "performance.read" },
     ],
   },
   {
-    label: "System",
+    label: "Organisation",
     items: [
+      { label: "Brands & Entities", href: "/settings", icon: "layers", permission: "admin.settings" },
+      { label: "Team", href: "/team", icon: "team", permission: "admin.users" },
       { label: "Integrations", href: "/integrations", icon: "plug", permission: "admin.settings" },
-      { label: "Settings", href: "/settings", icon: "settings", permission: "admin.settings" },
+      { label: "Audit Log", href: "/audit", icon: "audit", permission: "audit.read" },
     ],
   },
 ];

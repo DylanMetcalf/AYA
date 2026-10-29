@@ -7,6 +7,7 @@ import type { Db, DbOrTx } from "@/server/db/client";
 import {
   brands,
   guests,
+  quotes,
   trips,
   tripAssignments,
   tripBrands,
@@ -78,7 +79,7 @@ export async function listTrips(db: Db, actor: Actor, f: TripListFilters = {}) {
     .limit(500);
 }
 
-async function loadScopedTrip(db: DbOrTx, actor: Actor, id: string, lock = false) {
+export async function loadScopedTrip(db: DbOrTx, actor: Actor, id: string, lock = false) {
   if (!/^[0-9a-f-]{36}$/i.test(id)) throw notFound("Trip");
   const q = db.select().from(trips).where(and(eq(trips.id, id), tripScope(actor)));
   const [trip] = lock ? await q.for("update") : await q;
@@ -209,9 +210,14 @@ export async function updateTrip(db: Db, actor: Actor, id: string, expectedVersi
   });
 }
 
-/** Facts the lifecycle gates depend on. Quotes are introduced in Phase 6; until then they are false. */
-async function transitionContext(_tx: DbOrTx, trip: typeof trips.$inferSelect) {
-  return { commerciallyApproved: trip.commercialApprovedAt !== null, hasIssuedQuote: false, hasAcceptedQuote: false };
+/** Facts the lifecycle gates depend on, read from persisted quotes. */
+async function transitionContext(tx: DbOrTx, trip: typeof trips.$inferSelect) {
+  const rows = await tx.select({ status: quotes.status }).from(quotes).where(eq(quotes.tripId, trip.id));
+  return {
+    commerciallyApproved: trip.commercialApprovedAt !== null,
+    hasIssuedQuote: rows.some((q) => q.status === "issued" || q.status === "accepted"),
+    hasAcceptedQuote: rows.some((q) => q.status === "accepted"),
+  };
 }
 
 /** Next statuses with their blockers, evaluated by the same rules transitionTrip enforces. */

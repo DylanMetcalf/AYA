@@ -23,10 +23,10 @@ function greeting(d: Date) {
 
 function Metric({ label, value, href, note }: { label: string; value: number; href: string; note: string }) {
   return (
-    <Link href={href} className="group block rounded-[var(--radius-lg)] border border-stone-200 bg-surface px-5 py-4 transition-colors hover:border-stone-300">
+    <Link href={href} className="group block rounded-[var(--radius-lg)] border border-line bg-surface px-5 py-4 transition-colors hover:border-line-strong">
       <div className="flex items-start justify-between">
         <p className="text-[12px] font-medium text-ink-muted">{label}</p>
-        <ArrowUpRight size={14} className="text-stone-300 transition-colors group-hover:text-forest" aria-hidden />
+        <ArrowUpRight size={14} className="text-line-strong transition-colors group-hover:text-accent" aria-hidden />
       </div>
       <p className="mt-2 font-display text-[2.4rem] leading-none text-ink tabular">{value}</p>
       <p className="mt-2 text-[11.5px] text-ink-faint">{note}</p>
@@ -37,7 +37,7 @@ function Metric({ label, value, href, note }: { label: string; value: number; hr
 function TripLine({ t, meta }: { t: TripRow; meta?: string }) {
   return (
     <li>
-      <Link href={`/trips/${t.id}`} className="flex flex-wrap items-center gap-x-4 gap-y-1 px-4 py-3 hover:bg-stone-50">
+      <Link href={`/trips/${t.id}`} className="flex flex-wrap items-center gap-x-4 gap-y-1 px-4 py-3 hover:bg-subtle">
         <span className="w-28 shrink-0 text-[12px] whitespace-nowrap text-ink-faint tabular">{t.reference}</span>
         <span className="min-w-40 flex-1 text-sm font-medium text-ink">{t.name}</span>
         <BrandMark name={t.brandName} color={t.brandColor} />
@@ -78,7 +78,7 @@ export default async function CommandCentrePage() {
             {attentionCount === 0 ? (
               <EmptyState title="Nothing needs intervention">No unconfirmed near-term departures, unassigned trips or unapproved confirmations.</EmptyState>
             ) : (
-              <Panel className="divide-y divide-stone-100">
+              <Panel className="divide-y divide-muted">
                 {attention.confirmedWithoutApproval.length > 0 && (
                   <div>
                     <p className="px-4 pt-3 text-[11px] font-semibold uppercase tracking-[0.1em] text-danger">Confirmed without commercial approval (override)</p>
@@ -106,7 +106,7 @@ export default async function CommandCentrePage() {
               <EmptyState title="No journeys in the next 90 days" />
             ) : (
               <Panel>
-                <ul className="divide-y divide-stone-100">{data.upcoming.map((t) => <TripLine key={t.id} t={t} />)}</ul>
+                <ul className="divide-y divide-muted">{data.upcoming.map((t) => <TripLine key={t.id} t={t} />)}</ul>
               </Panel>
             )}
           </Section>
@@ -117,7 +117,7 @@ export default async function CommandCentrePage() {
             {data.pipeline.length === 0 ? (
               <p className="text-sm text-ink-muted">No estimates recorded on open trips.</p>
             ) : (
-              <Panel className="divide-y divide-stone-100">
+              <Panel className="divide-y divide-muted">
                 {data.pipeline.map((p) => (
                   <div key={p.currency} className="flex items-baseline justify-between px-4 py-3">
                     <span className="text-[12px] text-ink-muted">{p.n} trip{p.n === 1 ? "" : "s"}</span>
@@ -133,7 +133,7 @@ export default async function CommandCentrePage() {
 
           {data.recentActivity.length > 0 && (
             <Section title="Recent activity">
-              <ol className="space-y-3 border-l border-stone-200 pl-4">
+              <ol className="space-y-3 border-l border-line pl-4">
                 {data.recentActivity.map((a) => (
                   <li key={a.id} className="text-[13px]">
                     {a.entityType === "trip" ? (

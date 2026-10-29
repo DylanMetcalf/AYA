@@ -1,11 +1,11 @@
 import type { ReactNode } from "react";
 
-export function EmptyState({ title, children, action }: { title: string; children?: ReactNode; action?: ReactNode }) {
+export function EmptyState({ title, children, action, compact }: { title: string; children?: ReactNode; action?: ReactNode; compact?: boolean }) {
   return (
-    <div className="flex flex-col items-center rounded-[var(--radius-lg)] border border-dashed border-stone-300 px-6 py-12 text-center">
-      <p className="font-display text-lg text-ink">{title}</p>
-      {children && <div className="mt-1 max-w-md text-sm text-ink-muted">{children}</div>}
-      {action && <div className="mt-5">{action}</div>}
+    <div className={`flex flex-col items-center rounded-[var(--radius-lg)] border border-dashed border-line-strong bg-surface/50 px-6 text-center ${compact ? "py-7" : "py-12"}`}>
+      <p className="text-[14px] font-medium text-ink">{title}</p>
+      {children && <div className="mt-1 max-w-md text-[13px] text-ink-muted">{children}</div>}
+      {action && <div className="mt-4">{action}</div>}
     </div>
   );
 }

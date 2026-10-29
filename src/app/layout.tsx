@@ -1,11 +1,11 @@
-import "@fontsource-variable/inter";
-import "@fontsource-variable/fraunces";
+import "@fontsource-variable/geist";
+import "@fontsource-variable/geist-mono";
 import "./globals.css";
 import type { Metadata } from "next";
 import type { ReactNode } from "react";
 
 export const metadata: Metadata = {
-  title: { default: "ULTIMA · Experience Operations", template: "%s · ULTIMA" },
+  title: { default: "ULTIMA Operations", template: "%s · ULTIMA Operations" },
   description: "Internal operating platform for ULTIMA, AYA and connected partners.",
   robots: { index: false, follow: false },
 };

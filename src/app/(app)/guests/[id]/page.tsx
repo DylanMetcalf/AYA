@@ -35,9 +35,9 @@ export default async function GuestPage({ params, searchParams }: PageProps<"/gu
         </Section>
         <Section title="Journeys as lead guest">
           {trips.length === 0 ? <p className="text-sm text-ink-muted">No trips yet.</p> : (
-            <Panel><ul className="divide-y divide-stone-100">
+            <Panel><ul className="divide-y divide-muted">
               {trips.map((t) => (
-                <li key={t.id}><Link href={`/trips/${t.id}`} className="block px-4 py-3 hover:bg-stone-50">
+                <li key={t.id}><Link href={`/trips/${t.id}`} className="block px-4 py-3 hover:bg-subtle">
                   <p className="text-sm font-medium">{t.name}</p>
                   <p className="mt-1 flex items-center gap-2 text-[12px] text-ink-faint"><span className="tabular">{t.reference}</span> · {formatDateRange(t.startDate, t.endDate)} <TripStatusBadge status={t.status} /></p>
                 </Link></li>

@@ -45,7 +45,7 @@ export function BrandForm({ action, v, companies }: { action: Action; v: BrandVa
           <TextField label="Website" name="website" defaultValue={v.website} error={e.website} fieldClassName="sm:col-span-2" />
           <TextAreaField label="Document footer" name="documentFooter" defaultValue={v.documentFooter} error={e.documentFooter} fieldClassName="sm:col-span-2" hint="Shown on this brand's quotations and itineraries." />
           <label className="flex items-center gap-2 text-sm sm:col-span-2">
-            <input type="checkbox" name="isProvisional" defaultChecked={v.isProvisional} className="h-4 w-4 accent-forest" />
+            <input type="checkbox" name="isProvisional" defaultChecked={v.isProvisional} className="h-4 w-4 accent-accent" />
             Identity is provisional (official brand guidelines not yet supplied)
           </label>
         </>
@@ -72,7 +72,7 @@ export function CompanyForm({ action, v }: { action: Action; v: CompanyValues })
           <TextAreaField label="Address" name="address" rows={3} defaultValue={v.address} error={e.address} fieldClassName="sm:col-span-2" />
           <TextAreaField label="Notes" name="notes" rows={3} defaultValue={v.notes} error={e.notes} fieldClassName="sm:col-span-2" />
           <label className="flex items-center gap-2 text-sm sm:col-span-2">
-            <input type="checkbox" name="verified" defaultChecked={v.verified} className="h-4 w-4 accent-forest" />
+            <input type="checkbox" name="verified" defaultChecked={v.verified} className="h-4 w-4 accent-accent" />
             Legal, tax and invoicing details have been verified by the business
           </label>
         </>

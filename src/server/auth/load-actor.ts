@@ -9,7 +9,7 @@ export async function loadActor(db: DbOrTx, userId: string): Promise<Actor | nul
   const [user] = await db.select().from(users).where(eq(users.id, userId));
   if (!user || !user.isActive) return null;
   const rows = await db
-    .select({ key: roles.key, permission: rolePermissions.permission })
+    .select({ key: roles.key, name: roles.name, permission: rolePermissions.permission })
     .from(userRoles)
     .innerJoin(roles, eq(roles.id, userRoles.roleId))
     .leftJoin(rolePermissions, eq(rolePermissions.roleId, roles.id))
@@ -19,6 +19,7 @@ export async function loadActor(db: DbOrTx, userId: string): Promise<Actor | nul
     name: user.name,
     email: user.email,
     roleKeys: [...new Set(rows.map((r) => r.key))],
+    roleNames: [...new Set(rows.map((r) => r.name))],
     permissions: new Set(rows.flatMap((r) => (r.permission ? [r.permission as Permission] : []))),
   };
 }

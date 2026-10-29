@@ -11,6 +11,7 @@ import {
   uuid,
   varchar,
 } from "drizzle-orm/pg-core";
+import { RATE_BASES } from "@/lib/domain/components";
 import { currency, id, money, timestamps } from "./columns";
 import { legalCompanies, users } from "./org";
 
@@ -72,22 +73,7 @@ export const supplierContacts = pgTable("supplier_contacts", {
   ...timestamps,
 });
 
-export const rateBasis = pgEnum("rate_basis", [
-  "per_person",
-  "per_person_sharing",
-  "per_room_per_night",
-  "per_room_per_stay",
-  "per_vehicle_per_day",
-  "per_vehicle_per_km",
-  "per_transfer",
-  "per_flight",
-  "per_hour",
-  "per_guide_per_day",
-  "per_activity",
-  "per_group",
-  "per_item",
-  "fixed",
-]);
+export const rateBasis = pgEnum("rate_basis", RATE_BASES);
 
 /** Bookable service offered by a supplier (a room type, a helicopter route, a vehicle-day). */
 export const supplierServices = pgTable("supplier_services", {

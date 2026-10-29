@@ -44,12 +44,12 @@ export default async function SettingsPage({ searchParams }: PageProps<"/setting
         <Section title="Brands">
           <div className="grid gap-4 md:grid-cols-3">
             {brands.map((b) => (
-              <Link key={b.id} href={`/settings/brands/${b.id}`} className="block overflow-hidden rounded-[var(--radius-lg)] border border-stone-200 bg-surface hover:border-stone-300">
+              <Link key={b.id} href={`/settings/brands/${b.id}`} className="block overflow-hidden rounded-[var(--radius-lg)] border border-line bg-surface hover:border-line-strong">
                 <div className="flex h-20 items-end p-4" style={{ backgroundColor: b.colorPrimary }}>
-                  <span className="font-display text-xl tracking-[0.18em]" style={{ color: b.colorSecondary }}>{b.name}</span>
+                  <span className="text-lg font-semibold tracking-[0.18em]" style={{ color: b.colorSecondary }}>{b.name}</span>
                 </div>
                 <div className="space-y-2 p-4">
-                  <div className="flex gap-1.5" aria-hidden>{[b.colorPrimary, b.colorSecondary, b.colorAccent].map((c) => <span key={c} className="h-4 w-4 rounded-full ring-1 ring-stone-200" style={{ backgroundColor: c }} />)}</div>
+                  <div className="flex gap-1.5" aria-hidden>{[b.colorPrimary, b.colorSecondary, b.colorAccent].map((c) => <span key={c} className="h-4 w-4 rounded-full ring-1 ring-line" style={{ backgroundColor: c }} />)}</div>
                   <p className="text-[13px] text-ink-muted">{b.tagline ?? "No tagline"}</p>
                   <p className="text-[12px] text-ink-faint">{b.kind} brand · {companyName(b.legalCompanyId)}</p>
                   {b.isProvisional && <Badge tone="warning">Provisional identity</Badge>}

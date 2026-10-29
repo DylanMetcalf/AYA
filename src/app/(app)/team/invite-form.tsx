@@ -26,7 +26,7 @@ export function InviteForm({ roles }: { roles: { key: string; name: string; desc
         <div className="space-y-1.5">
           {roles.map((r) => (
             <label key={r.key} className="flex items-start gap-2 text-sm">
-              <input type="checkbox" name="roleKeys" value={r.key} className="mt-0.5 h-4 w-4 accent-forest" />
+              <input type="checkbox" name="roleKeys" value={r.key} className="mt-0.5 h-4 w-4 accent-accent" />
               <span><span className="font-medium">{r.name}</span><span className="block text-xs text-ink-faint">{r.description}</span></span>
             </label>
           ))}

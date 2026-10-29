@@ -8,6 +8,20 @@
       "when": 1793278479025,
       "tag": "0000_init",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1793297042037,
+      "tag": "0001_operations_domains",
+      "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1793297043139,
+      "tag": "0002_integrity_rules",
+      "breakpoints": true
     }
   ]
 }

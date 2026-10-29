@@ -2,3 +2,8 @@ export * from "./org";
 export * from "./crm";
 export * from "./suppliers";
 export * from "./trips";
+export * from "./itinerary";
+export * from "./finance";
+export * from "./fleet";
+export * from "./ops";
+export * from "./inventory";

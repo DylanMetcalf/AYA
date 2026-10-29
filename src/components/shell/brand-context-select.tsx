@@ -20,7 +20,7 @@ export function BrandContextSelect({ brands, current }: { brands: { slug: string
           fd.set("brand", e.target.value);
           start(() => setBrandContext(fd));
         }}
-        className="h-8 rounded-[var(--radius-md)] border border-stone-300 bg-surface px-2 text-[13px]"
+        className="h-8 rounded-[var(--radius-md)] border border-line-strong bg-surface px-2 text-[13px]"
       >
         <option value="all">All brands</option>
         {brands.map((b) => (

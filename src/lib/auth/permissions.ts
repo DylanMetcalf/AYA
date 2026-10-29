@@ -22,6 +22,9 @@ export const PERMISSIONS = {
   "quote.issue": "Issue quotations to clients",
   "fleet.read": "View vehicles and allocations",
   "fleet.edit": "Manage vehicles, allocations and inspections",
+  "fleet.safety_override": "Release a vehicle with an open critical defect (recorded, with reason)",
+  "inventory.read": "View inventory and stock movements",
+  "inventory.edit": "Receive, reserve, issue and adjust stock",
   "performance.read": "View targets, forecasts and management reports",
   "admin.users": "Invite users, assign roles, deactivate accounts",
   "admin.settings": "Configure companies, brands and integrations",
@@ -51,7 +54,7 @@ export const SYSTEM_ROLES: { key: string; name: string; description: string; per
     permissions: [
       "trip.read", "trip.read_all", "trip.create", "trip.edit", "trip.cancel",
       "guest.read", "guest.read_sensitive", "guest.edit",
-      "supplier.read", "supplier.edit", "finance.read_costs", "fleet.read",
+      "supplier.read", "supplier.edit", "finance.read_costs", "fleet.read", "inventory.read",
     ],
   },
   {
@@ -60,14 +63,14 @@ export const SYSTEM_ROLES: { key: string; name: string; description: string; per
     description: "Supplier confirmations, tasks, readiness and transport.",
     permissions: [
       "trip.read", "trip.read_all", "trip.edit", "guest.read", "guest.read_sensitive",
-      "supplier.read", "supplier.edit", "fleet.read", "fleet.edit",
+      "supplier.read", "supplier.edit", "fleet.read", "fleet.edit", "inventory.read", "inventory.edit",
     ],
   },
   {
     key: "fleet",
     name: "Fleet Manager",
     description: "Vehicles, availability, allocations, inspections and maintenance.",
-    permissions: ["trip.read", "trip.read_all", "fleet.read", "fleet.edit", "supplier.read"],
+    permissions: ["trip.read", "trip.read_all", "fleet.read", "fleet.edit", "supplier.read", "inventory.read"],
   },
   {
     key: "finance",

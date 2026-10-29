@@ -43,10 +43,10 @@ export async function listSuppliers(db: Db, actor: Actor, f: { q?: string; categ
     .select({
       id: suppliers.id, name: suppliers.name, category: suppliers.category, region: suppliers.region, location: suppliers.location,
       verification: suppliers.verification, defaultCurrency: suppliers.defaultCurrency, isDemo: suppliers.isDemo,
-      services: sql<number>`(select count(*)::int from supplier_services s where s.supplier_id = ${suppliers.id})`,
-      approvedRates: sql<number>`(select count(*)::int from supplier_rates r join supplier_services s on s.id = r.service_id where s.supplier_id = ${suppliers.id} and r.status = 'approved')`,
-      pendingRates: sql<number>`(select count(*)::int from supplier_rates r join supplier_services s on s.id = r.service_id where s.supplier_id = ${suppliers.id} and r.status = 'pending_review')`,
-      expiringRates: sql<number>`(select count(*)::int from supplier_rates r join supplier_services s on s.id = r.service_id where s.supplier_id = ${suppliers.id} and r.status = 'approved' and r.valid_to is not null and r.valid_to < current_date + 60)`,
+      services: sql<number>`(select count(*)::int from supplier_services s where s.supplier_id = "suppliers"."id")`,
+      approvedRates: sql<number>`(select count(*)::int from supplier_rates r join supplier_services s on s.id = r.service_id where s.supplier_id = "suppliers"."id" and r.status = 'approved')`,
+      pendingRates: sql<number>`(select count(*)::int from supplier_rates r join supplier_services s on s.id = r.service_id where s.supplier_id = "suppliers"."id" and r.status = 'pending_review')`,
+      expiringRates: sql<number>`(select count(*)::int from supplier_rates r join supplier_services s on s.id = r.service_id where s.supplier_id = "suppliers"."id" and r.status = 'approved' and r.valid_to is not null and r.valid_to < current_date + 60)`,
     })
     .from(suppliers)
     .where(and(...conds))

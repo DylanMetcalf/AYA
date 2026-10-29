@@ -1,4 +1,4 @@
-import { and, asc, desc, eq, sql } from "drizzle-orm";
+import { asc, desc, eq, sql } from "drizzle-orm";
 import { z } from "zod";
 import { computeBalances, normaliseConsumableBalances, validateMovement, type MovementType } from "@/lib/domain/inventory";
 import { currencyCode, isUuid, optAmount, optText, optUuid, reqText } from "@/lib/validation/common";

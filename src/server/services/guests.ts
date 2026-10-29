@@ -22,7 +22,7 @@ export async function listGuests(db: Db, actor: Actor, q = "") {
   requirePermission(actor, "guest.read");
   const term = `%${q.trim()}%`;
   const rows = await db
-    .select({ id: guests.id, firstName: guests.firstName, lastName: guests.lastName, email: guests.email, phone: guests.phone, nationality: guests.nationality, isDemo: guests.isDemo, tripCount: sql<number>`(select count(*)::int from trips t where t.lead_guest_id = ${guests.id})` })
+    .select({ id: guests.id, firstName: guests.firstName, lastName: guests.lastName, email: guests.email, phone: guests.phone, nationality: guests.nationality, isDemo: guests.isDemo, tripCount: sql<number>`(select count(*)::int from trips t where t.lead_guest_id = "guests"."id")` })
     .from(guests)
     .where(q.trim() ? or(ilike(guests.firstName, term), ilike(guests.lastName, term), ilike(guests.email, term)) : undefined)
     .orderBy(asc(guests.lastName), asc(guests.firstName))

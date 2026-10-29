@@ -7,6 +7,8 @@ import type { Db, DbOrTx } from "@/server/db/client";
 import {
   brands,
   guests,
+  itineraryComponents,
+  itineraryDays,
   quotes,
   trips,
   tripAssignments,
@@ -24,9 +26,9 @@ export function tripScope(actor: Actor): SQL | undefined {
   requirePermission(actor, "trip.read");
   if (can(actor, "trip.read_all")) return undefined;
   return or(
-    eq(trips.managerId, actor.id),
+    sql`"trips"."manager_id" = ${actor.id}`,
     exists(
-      sql`(select 1 from ${tripAssignments} where ${tripAssignments.tripId} = ${trips.id} and ${tripAssignments.userId} = ${actor.id})`,
+      sql`(select 1 from ${tripAssignments} ta where ta.trip_id = "trips"."id" and ta.user_id = ${actor.id})`,
     ),
   );
 }
@@ -288,8 +290,9 @@ export async function recordCommercialApproval(db: Db, actor: Actor, id: string,
 }
 
 /**
- * Duplicates a trip as a fresh enquiry. Copied: design fields, brand participation, party size, notes.
- * Never copied: dates, status, approvals, history, quotes, payments, supplier bookings, assignments.
+ * Duplicates a trip as a fresh enquiry (also how a past journey is used as a template). Copied: design
+ * fields, brands, party size, notes, itinerary outline and planned costs. Never copied: dates, status,
+ * approvals, history, quotes, payments, supplier confirmations, vehicle allocations, assignments.
  */
 export async function duplicateTrip(db: Db, actor: Actor, id: string) {
   requirePermission(actor, "trip.create");
@@ -324,6 +327,19 @@ export async function duplicateTrip(db: Db, actor: Actor, id: string) {
       })
       .returning();
     if (srcBrands.length) await tx.insert(tripBrands).values(srcBrands.map((b) => ({ ...b, tripId: copy!.id })));
+    // Copy the itinerary outline and planned costing; supplier arrangements start again from "planned".
+    const days = await tx.select().from(itineraryDays).where(eq(itineraryDays.tripId, id));
+    for (const d of days) {
+      const [nd] = await tx.insert(itineraryDays).values({ tripId: copy!.id, dayNumber: d.dayNumber, title: d.title, location: d.location, notes: d.notes }).returning();
+      const comps = await tx.select().from(itineraryComponents).where(eq(itineraryComponents.dayId, d.id));
+      if (comps.length) {
+        await tx.insert(itineraryComponents).values(
+          comps.map(({ id: _id, createdAt: _c, updatedAt: _u, ...c }) => ({
+            ...c, tripId: copy!.id, dayId: nd!.id, bookingStatus: "planned" as const, confirmationRef: null, confirmedOn: null, supplierPaymentDue: null, actualCost: null,
+          })),
+        );
+      }
+    }
     await tx.insert(tripStatusHistory).values({ tripId: copy!.id, toStatus: "enquiry", actorId: actor.id, reason: `Duplicated from ${src.reference}` });
     await audit(tx, actor.id, { action: "trip.duplicated", entityType: "trip", entityId: copy!.id, summary: `${copy!.reference}: duplicated from ${src.reference}`, changes: { sourceTripId: id } });
     return copy!;

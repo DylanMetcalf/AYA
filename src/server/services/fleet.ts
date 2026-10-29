@@ -49,10 +49,10 @@ export async function listVehicles(db: Db, actor: Actor) {
       v: vehicles,
       ownerName: legalCompanies.name,
       supplierName: suppliers.name,
-      openCritical: sql<number>`(select count(*)::int from vehicle_defects d where d.vehicle_id = ${vehicles.id} and d.resolved_at is null and d.severity = 'critical')`,
-      openDefects: sql<number>`(select count(*)::int from vehicle_defects d where d.vehicle_id = ${vehicles.id} and d.resolved_at is null)`,
-      lastSignedOff: sql<boolean | null>`(select i.signed_off from vehicle_inspections i where i.vehicle_id = ${vehicles.id} order by i.inspected_at desc limit 1)`,
-      nextAllocation: sql<string | null>`(select a.start_date::text || '|' || t.reference from vehicle_allocations a join trips t on t.id = a.trip_id where a.vehicle_id = ${vehicles.id} and a.status <> 'cancelled' and a.end_date >= current_date order by a.start_date limit 1)`,
+      openCritical: sql<number>`(select count(*)::int from vehicle_defects d where d.vehicle_id = "vehicles"."id" and d.resolved_at is null and d.severity = 'critical')`,
+      openDefects: sql<number>`(select count(*)::int from vehicle_defects d where d.vehicle_id = "vehicles"."id" and d.resolved_at is null)`,
+      lastSignedOff: sql<boolean | null>`(select i.signed_off from vehicle_inspections i where i.vehicle_id = "vehicles"."id" order by i.inspected_at desc limit 1)`,
+      nextAllocation: sql<string | null>`(select a.start_date::text || '|' || t.reference from vehicle_allocations a join trips t on t.id = a.trip_id where a.vehicle_id = "vehicles"."id" and a.status <> 'cancelled' and a.end_date >= current_date order by a.start_date limit 1)`,
     })
     .from(vehicles)
     .leftJoin(legalCompanies, eq(legalCompanies.id, vehicles.ownerCompanyId))
@@ -265,7 +265,7 @@ export async function resolveDefect(db: Db, actor: Actor, defectId: string, reso
 
 export async function tripAllocations(db: DbOrTx, tripId: string) {
   const rows = await db
-    .select({ a: vehicleAllocations, v: vehicles, lastSignedOff: sql<boolean | null>`(select i.signed_off from vehicle_inspections i where i.vehicle_id = ${vehicles.id} order by i.inspected_at desc limit 1)`, openCritical: sql<number>`(select count(*)::int from vehicle_defects d where d.vehicle_id = ${vehicles.id} and d.resolved_at is null and d.severity = 'critical')` })
+    .select({ a: vehicleAllocations, v: vehicles, lastSignedOff: sql<boolean | null>`(select i.signed_off from vehicle_inspections i where i.vehicle_id = "vehicles"."id" order by i.inspected_at desc limit 1)`, openCritical: sql<number>`(select count(*)::int from vehicle_defects d where d.vehicle_id = "vehicles"."id" and d.resolved_at is null and d.severity = 'critical')` })
     .from(vehicleAllocations)
     .innerJoin(vehicles, eq(vehicles.id, vehicleAllocations.vehicleId))
     .where(eq(vehicleAllocations.tripId, tripId))

@@ -1,0 +1,86 @@
+@import "tailwindcss";
+
+/*
+ * ULTIMA design tokens — PROVISIONAL until official brand guidelines arrive (OPEN_DECISIONS D2).
+ * Contrast (measured): ink, ink-muted, forest, olive, brass-text and status colours meet WCAG AA
+ * (≥4.5:1) on ivory, surface and stone-100. ink-faint meets AA on ivory/surface only — not on stone-100.
+ * `brass` (2.8:1) is decorative only (rules, accents), never text.
+ */
+@theme {
+  --color-ivory: #f7f3ec;
+  --color-surface: #fffdf9;
+  --color-stone-50: #f3eee5;
+  --color-stone-100: #ece5d8;
+  --color-stone-200: #ddd4c3;
+  --color-stone-300: #c8bda8;
+  --color-stone-500: #8c826e;
+  --color-ink: #1e1f1c;
+  --color-ink-muted: #57564d;
+  --color-ink-faint: #6f6c61;
+  --color-forest: #1f3a2e;
+  --color-forest-600: #2b4d3d;
+  --color-forest-50: #e6ece6;
+  --color-olive: #5f6140;
+  --color-sand: #d8c8a8;
+  --color-brass: #b08d57;
+  --color-brass-text: #7d5f2e;
+  --color-success: #2f6345;
+  --color-success-bg: #e3eee5;
+  --color-warning: #8a5a12;
+  --color-warning-bg: #f6ebd6;
+  --color-danger: #9b3328;
+  --color-danger-bg: #f6e2de;
+  --color-info: #35546e;
+  --color-info-bg: #e2e9ef;
+
+  --font-display: "Fraunces Variable", Georgia, serif;
+  --font-sans: "Inter Variable", system-ui, -apple-system, "Segoe UI", sans-serif;
+
+  --radius-sm: 3px;
+  --radius-md: 5px;
+  --radius-lg: 8px;
+}
+
+:root {
+  color-scheme: light;
+}
+
+body {
+  background: var(--color-ivory);
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  font-feature-settings: "cv11", "ss01";
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Financial figures align in columns. */
+.tabular {
+  font-variant-numeric: tabular-nums;
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-forest);
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+dialog::backdrop {
+  background: rgb(30 31 28 / 0.35);
+}
+
+@media print {
+  .no-print {
+    display: none !important;
+  }
+  body {
+    background: white;
+  }
+}
